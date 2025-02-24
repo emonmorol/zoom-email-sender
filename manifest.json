@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Zoom Email Sender",
+  "version": "1.0",
+  "description": "Automates sending Zoom recording links to multiple emails.",
+  "permissions": ["scripting", "activeTab", "storage"],
+  "host_permissions": ["https://us05web.zoom.us/recording/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://us05web.zoom.us/recording/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
