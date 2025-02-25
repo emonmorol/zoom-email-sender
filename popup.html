@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zoom Email Sender</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="popup.js" defer></script>
 </head>
 <body>
-    <h3>Enter Emails (comma-separated)</h3>
-    <textarea id="emails" rows="5" cols="30"></textarea>
-    <button id="sendEmails">Send</button>
+    <div class="container">
+        <h3>Enter Emails (Comma Separated)</h3>
+        <textarea id="emails" rows="20" cols="30" placeholder="example1@example.com, example2@example.com" required></textarea>
+        <button id="sendEmails">Send Emails</button>
+    </div>
 </body>
 </html>

@@ -14,13 +14,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 function injectEmails(emails) {
     let i = 0;
-
+    console.log(emails);
+    
     function sendNextEmail() {
         if (i >= emails.length) {
             console.log("✅ All emails have been processed.");
             return;
         }
-
+        
         const emailInput = document.querySelector('input[placeholder="Enter a name or email address"]');
         const sendButton = [...document.querySelectorAll("button")].find(btn => btn.innerText.trim() === "Send");
 
@@ -53,7 +54,7 @@ function injectEmails(emails) {
                     }
                 }, 1000); 
             }
-        }, 1000); 
+        }, 2000); 
     }
 
     sendNextEmail();
