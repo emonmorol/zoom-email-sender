@@ -13,21 +13,48 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 function injectEmails(emails) {
-    let index = 0;
-    console.log(emails);
-    
-    const cloud = document.getElementsByClassName("zoom-tabs__item");
-    // console.log(cloud);
+    let i = 0;
+
     function sendNextEmail() {
-        if (index >= cloud.length) return;
-        // const sendButton = document.querySelector("button");
-        // if (emailField && sendButton) {
-            // emailField.value = emails[index];
-            // sendButton.click();
-            cloud[index].click();
-            index++;
-            setTimeout(sendNextEmail, 3000);
-        // }
+        if (i >= emails.length) {
+            console.log("✅ All emails have been processed.");
+            return;
+        }
+
+        const emailInput = document.querySelector('input[placeholder="Enter a name or email address"]');
+        const sendButton = [...document.querySelectorAll("button")].find(btn => btn.innerText.trim() === "Send");
+
+        if (!emailInput || !sendButton) {
+            console.log("❌ Email input field or Send button not found!");
+            return;
+        }
+
+        emailInput.value = emails[i];
+        emailInput.dispatchEvent(new Event("input", { bubbles: true })); 
+
+        
+        const checkEmailSuggestion = setInterval(() => {
+            const box = document.getElementsByClassName("zoom-checkbox__original");
+            const checkbox = box[box.length - 1];
+            
+            if (checkbox) {
+                clearInterval(checkEmailSuggestion);
+                checkbox.click(); 
+
+                
+                const checkButtonEnabled = setInterval(() => {
+                    if (!sendButton.disabled) {
+                        clearInterval(checkButtonEnabled);
+                        sendButton.click();
+                        console.log(`📧 Sent to: ${emails[i]}`);
+                        
+                        i++;
+                        setTimeout(sendNextEmail, 2000); 
+                    }
+                }, 1000); 
+            }
+        }, 1000); 
     }
+
     sendNextEmail();
 }
